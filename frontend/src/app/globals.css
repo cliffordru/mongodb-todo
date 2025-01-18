@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .todo-input {
+    @apply w-full px-4 py-2 text-gray-700 bg-white border rounded-lg focus:outline-none focus:border-blue-500;
+  }
+  
+  .btn {
+    @apply px-4 py-2 font-semibold text-white rounded-lg transition-colors duration-200;
+  }
+  
+  .btn-primary {
+    @apply btn bg-blue-500 hover:bg-blue-600;
+  }
+  
+  .btn-danger {
+    @apply btn bg-red-500 hover:bg-red-600;
+  }
+} 

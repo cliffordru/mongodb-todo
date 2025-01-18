@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - app-network
+
+  backend-dotnet:
+    build: ./backend-dotnet
+    ports:
+      - "5001:5000"
+    depends_on:
+      - mongodb
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/todo_db
+      - ASPNETCORE_ENVIRONMENT=Development
+    networks:
+      - app-network
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend-dotnet
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:5001/api/todos
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongodb_data: 
